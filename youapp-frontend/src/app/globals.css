@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@source "../../";
+
+/* === Theme configuration (replaces tailwind.config.ts) === */
+@theme {
+  --color-background: #09141a;
+  --color-foreground: #ffffff;
+}
+
+/* === Base styles === */
+body {
+  color: var(--color-foreground);
+  background: radial-gradient(
+    121.73% 121.49% at 100% -3.39%,
+    #1f4247 0%,
+    #0d1d23 56.18%,
+    #09141a 100%
+  );
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Custom utilities (replaces @layer components) === */
+@utility btn-gradient {
+  background: linear-gradient(108.32deg, #62cdcb 24.88%, #4599db 78.49%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+@utility text-gradient {
+  background: linear-gradient(
+    74.08deg,
+    #94783e -6.8%,
+    #f3eda6 16.76%,
+    #f8fae5 30.5%,
+    #ffe2be 49.6%,
+    #d5be88 78.56%,
+    #f8fae5 128.01%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility bg-main-gradient {
+  background: radial-gradient(
+    121.73% 121.49% at 100% -3.39%,
+    #1f4247 0%,
+    #0d1d23 56.18%,
+    #09141a 100%
+  );
+}
+
+/* Hide number input spinners */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
