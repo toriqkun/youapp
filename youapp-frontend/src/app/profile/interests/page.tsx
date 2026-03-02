@@ -20,7 +20,6 @@ export default function InterestsPage() {
         const response = await getProfile();
         const profileData = response.data || {};
         
-        // Restore locally-stored fields
         const storedImage = localStorage.getItem('profile_image');
         if (storedImage && !profileData.image) {
           profileData.image = storedImage;
@@ -60,7 +59,6 @@ export default function InterestsPage() {
   const handleSave = async () => {
     setSaving(true);
     try {
-      // Only send API-compatible fields, preserve the rest locally
       const dto = {
         name: profile?.name || '',
         birthday: profile?.birthday || '',

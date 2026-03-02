@@ -62,7 +62,6 @@ export class AuthService {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, this.SALT_ROUNDS);
 
-    // Create user
     const user = new this.userModel({
       email: email.toLowerCase(),
       username,
@@ -82,13 +81,22 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto): Promise<AuthResponse> {
-    const { email, password } = loginDto;
+    const { email: identifier, username, password } = loginDto;
 
-    // Find user by email
-    const user = await this.userModel.findOne({ email: email.toLowerCase() }).exec();
+    // Find user by email or username
+    const user = await this.userModel.findOne({
+      $or: [
+        { email: identifier.toLowerCase() },
+        { username: identifier },
+        ...(username ? [{ username }] : []),
+        ...(username ? [{ email: username.toLowerCase() }] : [])
+      ],
+    }).exec();
+
     if (!user) {
-      throw new UnauthorizedException('Invalid email or password');
+      throw new UnauthorizedException('Invalid identifier or password');
     }
+
 
     // Compare password
     const isPasswordValid = await bcrypt.compare(password, user.password);

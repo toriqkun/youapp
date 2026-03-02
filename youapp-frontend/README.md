@@ -1,6 +1,6 @@
-# YouApp Frontend — Social Matching & Chat UI
+# YouApp Frontend — Social Profile & Matching UI
 
-A beautifully designed, premium frontend application for **YouApp**, providing a seamless experience for social matching, profile management, and real-time chatting.
+A beautifully designed, premium frontend application for **YouApp**, providing a seamless experience for profile management and matching.
 
 ## 🚀 Tech Stack
 The project is built with high-performance modern web technologies:
@@ -25,12 +25,9 @@ The project is built with high-performance modern web technologies:
   - **Dynamic Zodiac Calculation**: Users see their Zodiac and Horoscope update in real-time as they enter their birthday.
   - Interest matching UI with interactive tag management.
   - Real-time profile preview.
-- **Social Matching & Messaging**:
-  - Social discovery pages highlighting common interests.
-  - Clean and intuitive Chat interface.
-  - Real-time message rendering and state updates.
 - **Responsive Design**:
   - Fully mobile-first design optimized for all screen sizes.
+
 
 ## 📂 Project Structure
 ```text
@@ -74,6 +71,3 @@ npm run dev
 npm run build
 npm run start
 ```
-
----
-Developed for **YouApp — Batch 62 — Toriqkun/DumbWays**

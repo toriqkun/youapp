@@ -24,13 +24,11 @@ export default function ProfilePage() {
         const response = await getProfile();
         const profileData = response.data || {};
         
-        // Restore locally-stored image since API doesn't persist it
         const storedImage = localStorage.getItem('profile_image');
         if (storedImage && !profileData.image) {
           profileData.image = storedImage;
         }
         
-        // Restore locally-stored gender since API might not persist it
         const storedGender = localStorage.getItem('profile_gender');
         if (storedGender && !profileData.gender) {
           profileData.gender = storedGender;
@@ -38,7 +36,6 @@ export default function ProfilePage() {
 
         setProfile(profileData);
         
-        // Use the real username from API if available
         if (profileData.username) {
           setUsername(profileData.username);
           localStorage.setItem('username', profileData.username);
@@ -61,9 +58,7 @@ export default function ProfilePage() {
   const handleProfileUpdate = (updatedProfile: UserProfile) => {
     setProfile(updatedProfile);
     
-    // Also update the username state if name changed
     if (updatedProfile.name) {
-      // name is the display name, keep username for @handle
     }
     if (updatedProfile.username) {
       setUsername(updatedProfile.username);
@@ -108,7 +103,7 @@ export default function ProfilePage() {
       >
         {/* Dark overlay when image exists for better text readability */}
         {profile?.image && (
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-[1]" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent z-1" />
         )}
         <div className="space-y-1 relative z-10">
           <div className="flex items-center gap-2">

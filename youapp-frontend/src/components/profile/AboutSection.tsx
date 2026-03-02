@@ -97,7 +97,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile, onProfileUp
         response = await updateProfile(dto);
       }
       
-      // Persist image and gender locally since API doesn't store them
       if (formData.image) {
         localStorage.setItem('profile_image', formData.image);
       }
@@ -105,8 +104,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile, onProfileUp
         localStorage.setItem('profile_gender', formData.gender);
       }
       
-      // Use formData as source of truth merged with API response
-      // This ensures ALL fields update realtime including name, gender, image
       const updatedData: UserProfile = {
         ...profile,
         ...response.data,

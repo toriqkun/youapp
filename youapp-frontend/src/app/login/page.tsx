@@ -36,30 +36,21 @@ export default function LoginPage() {
     try {
       setLoading(true);
       setError(null);
-      // The API might expect 'email' or 'username'. 
-      // Based on docs it uses LoginDto which might have either.
-      // We will try to send the identifier as both or see which one works.
-      // Usually it's either email or username.
       const response = await loginUser({
         email: data.identifier,
-        username: data.identifier,
         password: data.password,
       });
-      
-      // Store token (Blueprint says httpOnly cookie, but for now we'll store in localStorage 
-      // if it's a client component, or handle via a server action/route if needed.
-      // But blueprint says: "Store token di httpOnly cookie (recommended)")
-      // Since I cannot set httpOnly cookies from client-side JS easily without an API route,
-      // and Blueprint says "Jangan buat API routes lokal", I will use a standard cookie or localStorage for now
-      // unless I implement a login handler that redirect to a server action. 
-      // Actually, Blueprint says: "Axios interceptor attach token". 
-      // Let's store in localStorage for simplicity in this MVP unless instructed otherwise.
+
+
       if (response.access_token) {
         localStorage.setItem('access_token', response.access_token);
-        // Don't guess username from email - let getProfile provide the real username
-        localStorage.setItem('username', data.identifier);
+        
+        const realUsername = response.user?.username || response.username || response.data?.username || data.identifier;
+        localStorage.setItem('username', realUsername);
+        
         router.push('/profile');
       }
+
     } catch (err: any) {
       setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
     } finally {
@@ -84,7 +75,7 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <Input
-            placeholder="Enter Username/Email"
+            placeholder="Enter Email"
             {...register('identifier')}
             error={errors.identifier?.message}
           />
